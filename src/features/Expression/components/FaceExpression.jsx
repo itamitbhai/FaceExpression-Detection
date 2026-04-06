@@ -1,6 +1,10 @@
 import "../style/Face.scss"
-
 import { useEffect, useRef, useState } from "react";
+import { detect, init } from "../utils/utils";
+
+
+
+
 export default function FaceExpression() {
   const videoRef = useRef(null);
   const landmarkerRef = useRef(null);
@@ -10,17 +14,10 @@ export default function FaceExpression() {
 
   const [expression, setExpression] = useState("Detecting...");
 
-   
-
-   
-
   useEffect(() => {
 
-
-    
-
    
-        init();
+     init({landmarkerRef, videoRef, streamRef, setExpression});
 
 
 
@@ -47,7 +44,7 @@ export default function FaceExpression() {
         muted
       />
       <h2>{expression}</h2>
-      <button className="button" onClick={detect}>Detect Expression</button>
+      <button className="button" onClick={() =>{detect({landmarkerRef, videoRef, setExpression})}}>Detect Expression</button>
     </div>
   );
 }
