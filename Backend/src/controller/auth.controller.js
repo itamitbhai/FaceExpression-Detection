@@ -1,7 +1,6 @@
 const userModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { isPowerOfTwo } = require("three/src/math/MathUtils.js");
 
 
 async function registerUser(req, res){
@@ -92,4 +91,13 @@ async function loginUser(req, res) {
     })
 }
 
-module.exports = {registerUser, loginUser}
+async function getMe(req, res) {
+    const user = await userModel.findById(req.user.id)
+
+    res.status(200).json({
+        message: "User Fetch SucessFUlly",
+        user
+    })
+}
+
+module.exports = {registerUser, loginUser, getMe}
