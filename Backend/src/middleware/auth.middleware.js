@@ -1,4 +1,6 @@
+const blacklistModel = require("../models/blacklist.model");
 const userModel = require("../models/user.model");
+const redis = require("../config/cache")
 const jwt = require("jsonwebtoken");
 
 
@@ -7,7 +9,28 @@ async function authUser(req, res, next){
 
     if(!token) {
         return res.status(401).json({
-            message: "TOken not Provided"
+            message: "Token not Provided"
+        })
+    }
+
+    
+    /**
+     * @mongodb mai aise likhte aur then mongodb mai show hota hai
+     */
+
+    // const isTokenBlacklisted = await blacklistModel.findOne({
+    //     token
+    // })
+
+    /**
+     * @Redis
+     */
+
+    const isTokenBlacklisted = await  redis.get(token)
+
+    if(isTokenBlacklisted){
+        return res.status(401).json({
+            message: "Invalid token"
         })
     }
 
