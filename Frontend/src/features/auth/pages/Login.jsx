@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "../../auth/style/login.scss"
-import "../components/FormGroup"
+// import "../components/FormGroup"
 import FormGroup from '../components/FormGroup'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
@@ -17,7 +17,9 @@ const Login = () => {
 
   async function handleSubmit(e) {
       e.preventDefault()
+      console.log("submit")
       await handleLogin({email, password})
+      console.log("login")
       navigate("/")
   }
 
@@ -37,7 +39,8 @@ const Login = () => {
               value={password}
               onChange={(e)=> setPassword(e.target.value)}
               label="password"
-              placeholder="Enter your Password"/>
+              placeholder="Enter your Password"
+              type="password"/>
             <button className='button' type='submit'>Login</button>
         </form>
         <p>Don't have an account? <Link to="/register">Register Here</Link></p>

@@ -9,13 +9,12 @@ const Protected = ({ children }) => {
         user, loading
     } = useAuth()
 
-    const navigate = useNavigate()
 
     if(loading){
         return <h1>loading</h1>
     }
 
-    if(!loading || !user){
+    if(!loading && !user){
        return <Navigate to='/login'/>
     }
 
