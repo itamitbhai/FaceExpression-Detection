@@ -5,7 +5,7 @@ import { detect, init } from "../utils/utils";
 
 
 
-export default function FaceExpression() {
+export default function FaceExpression({onClick=() => {}}) {
   const videoRef = useRef(null);
   const landmarkerRef = useRef(null);
   const animationRef = useRef(null);
@@ -33,6 +33,13 @@ export default function FaceExpression() {
   }, []);
 
 
+  async function handleClick() {
+    const expression = detect({landmarkerRef, videoRef, setExpression})
+    console.log(expression)
+    onClick(expression)
+  }
+
+
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -44,7 +51,7 @@ export default function FaceExpression() {
         muted
       />
       <h2>{expression}</h2>
-      <button className="button" onClick={() =>{detect({landmarkerRef, videoRef, setExpression})}}>Detect Expression</button>
+      <button className="button" onClick={handleClick}>Detect Expression</button>
     </div>
   );
 }
